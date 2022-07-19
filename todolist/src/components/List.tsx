@@ -1,4 +1,5 @@
-import React, { useEffect} from "react";
+import React, { useEffect,useState} from "react";
+import EditTodo from "./EditTodo";
 
 interface Props { 
     handleTodoInput:(event: React.ChangeEvent<HTMLInputElement>) => void
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const List: React.FC<Props> = (Props) => {
+    const [value,setValue] = useState<string>("ameer");
     const {handleTodoInput,handleTodoAdd,
         todoListArray,todoId,
         handleDeleteTodo,setTodoListArray}
@@ -19,6 +21,13 @@ const List: React.FC<Props> = (Props) => {
             localStorage.getItem("listsInStorage") || "[]")
             setTodoListArray(listFromStorage )
       }, []);
+      const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        setValue(event.target.value)
+        console.log(event.target.value);
+        
+
+
+      }
 return(
     <div>
     <h1>Add a Todo</h1>
@@ -26,9 +35,11 @@ return(
     <button onClick={ handleTodoAdd }>Add</button>
     { todoListArray && todoListArray.map((todo: string, i: number) => {
       return <div key={ todoId + i }>
-        <div>{ todo }</div><span onClick={ handleDeleteTodo }>
-            x</span></div>
+        <div>{ todo }</div><span onClick={ handleDeleteTodo }>x</span>
+            <EditTodo/>
+            </div>
     }) }
+    <input onChange={handleChange} value={value} type="text" />
   </div>
 )
 }
