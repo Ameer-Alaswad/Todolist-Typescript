@@ -1,46 +1,38 @@
-import React, { useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
 
-interface Props { 
-    handleTodoInput:(event: React.ChangeEvent<HTMLInputElement>) => void
+interface Props {
+    handleTodoInput: (event: React.ChangeEvent<HTMLInputElement>) => void
     handleTodoAdd: () => void
-    todoListArray:string[]
+    todoListArray: string[]
     todoId: string
-    handleDeleteTodo:(event: React.MouseEvent<HTMLButtonElement>)=> void
+    handleDeleteTodo: (event: React.MouseEvent<HTMLButtonElement>) => void
     setTodoListArray: (value: string[]) => void
 }
 
 const List: React.FC<Props> = (Props) => {
-    const [value,setValue] = useState<string>("ameer");
-    const {handleTodoInput,handleTodoAdd,
-        todoListArray,todoId,
-        handleDeleteTodo,setTodoListArray}
-         = Props
+    const { handleTodoInput, handleTodoAdd,
+        todoListArray, todoId,
+        handleDeleteTodo, setTodoListArray, }
+        = Props
     useEffect(() => {
         const listFromStorage = JSON.parse(
             localStorage.getItem("listsInStorage") || "[]")
-            setTodoListArray(listFromStorage )
-      }, []);
-      const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        setValue(event.target.value)
-        console.log(event.target.value);
-        
-
-
-      }
-return(
-    <div>
-    <h1>Add a Todo</h1>
-    <input onChange={ handleTodoInput } type="text" />
-    <button onClick={ handleTodoAdd }>Add</button>
-    { todoListArray && todoListArray.map((todo: string, i: number) => {
-      return <div key={ todoId + i }>
-        <div>{ todo }</div><span onClick={ handleDeleteTodo }>x</span>
-            <EditTodo/>
-            </div>
-    }) }
-    <input onChange={handleChange} value={value} type="text" />
-  </div>
-)
+        setTodoListArray(listFromStorage)
+    }, []);
+    const obj = { setTodoListArray: setTodoListArray }
+    return (
+        <div>
+            <h1>Add a Todo</h1>
+            <input onChange={ handleTodoInput } type="text" />
+            <button onClick={ handleTodoAdd }>Add</button>
+            { todoListArray && todoListArray.map((todo: string, i: number) => {
+                return <div key={ todoId + i }>
+                    <div>{ todo }</div><span onClick={ handleDeleteTodo }>x</span>
+                    <EditTodo { ...obj } />
+                </div>
+            }) }
+        </div>
+    )
 }
 export default List

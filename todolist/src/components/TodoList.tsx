@@ -1,8 +1,8 @@
-import React, { useState, useId } from "react";
+import React, { useState, useId, useEffect } from "react";
 import List from "./List";
 import { deleteTodoLogic } from "./todListUtils";
 
-interface Props {}
+interface Props { }
 
 const TodoList: React.FC<Props> = (props) => {
   if (!localStorage.getItem("listsInStorage")) {
@@ -16,6 +16,8 @@ const TodoList: React.FC<Props> = (props) => {
   const [todoListArray, setTodoListArray] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //  ////////////////////////////////////////////
   const handleTodoAdd = () => {
     localStorage.setItem(
       "listsInStorage",
@@ -28,7 +30,7 @@ const TodoList: React.FC<Props> = (props) => {
   const handleDeleteTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
     localStorage.setItem(
       "listsInStorage",
-      JSON.stringify(deleteTodoLogic( event, todoListArray))
+      JSON.stringify(deleteTodoLogic(event, todoListArray))
     );
     setTodoListArray(deleteTodoLogic(event, todoListArray));
   };
@@ -41,9 +43,9 @@ const TodoList: React.FC<Props> = (props) => {
     handleDeleteTodo: handleDeleteTodo,
     todoId: todoId,
     todoListArray: todoListArray,
-    setTodoListArray:setTodoListArray
+    setTodoListArray: setTodoListArray,
   };
   //////////////////////////////////////////////////////////////////////////////////////////////
-  return <List {...obj} />;
+  return <List { ...obj } />;
 };
 export default TodoList;
