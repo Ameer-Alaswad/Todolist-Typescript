@@ -2,49 +2,33 @@ import React, { useState } from "react";
 
 interface Props {
     setTodoListArray: (value: string[]) => void
-    setLayoutVisible: (value: boolean) => void
-    layoutVisible: boolean
+    setLayoutVisibility: (value: boolean) => void
+    layoutVisibility: boolean
 }
 
 const EditTodo: React.FC<Props> = (Props) => {
-    const { setTodoListArray, setLayoutVisible, layoutVisible } = Props
-
+    const { setTodoListArray, setLayoutVisibility, layoutVisibility } = Props
+    ///////////////////////////////////////////////////////////////
     const [value, setValue] = useState<string>("");
     const [todoListEditVisibility, setTodoListEditVisibility] = useState<boolean>(false);
     const [todoText, setTodoText] = useState<string>("");
-
-
+    ///////////////////////////////////////////////////////////////////////////////
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
         console.log(event.target.value);
     }
+    //////////////////////////////////////////////////////////////////////////////////////
     const handleEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
         const clickedButton = event.target as HTMLElement
-        let todoText = clickedButton.parentElement?.previousElementSibling?.previousElementSibling?.textContent
-        const selectedTodo = clickedButton.parentElement?.previousElementSibling?.previousElementSibling as HTMLElement
-        const editButton = clickedButton.parentElement?.children[0] as HTMLElement
-        const deleteButton = clickedButton.parentElement?.previousElementSibling as HTMLElement
-        // const editTodoContainer = clickedButton.parentElement?.parentElement?.children[2] as HTMLElement
-        // console.log(clickedButton.parentElement);
-
-        // editTodoContainer.style.zIndex = '1000'
-        deleteButton.style.display = 'none'
-        selectedTodo.style.display = 'none'
-        editButton.style.display = 'none'
+        const todoText = clickedButton.parentElement?.previousElementSibling?.children[0].textContent
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         setValue(String(todoText))
         setTodoText(String(todoText))
         setTodoListEditVisibility(true)
-        setLayoutVisible(true)
+        setLayoutVisibility(false)
     }
     const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const clickedButton = event.target as HTMLElement
-        const selectedTodo = clickedButton.parentElement?.parentElement?.parentElement?.children[0] as HTMLElement
-        const deleteButton = clickedButton.parentElement?.parentElement?.parentElement?.children[1] as HTMLElement
-        const editButton = clickedButton.parentElement?.parentElement?.children[0] as HTMLElement
-        deleteButton.style.display = 'inline'
-        selectedTodo.style.display = 'inline'
-        editButton.style.display = 'inline'
-        ////////////////////////////////////////////////////////
+        setLayoutVisibility(true)
         const listsInStorage = JSON.parse(
             localStorage.getItem("listsInStorage") || "[]"
         );
@@ -55,14 +39,14 @@ const EditTodo: React.FC<Props> = (Props) => {
         localStorage.setItem("listsInStorage", JSON.stringify(filteredTodos))
         setTodoListArray(filteredTodos)
         setTodoListEditVisibility(false)
-        setLayoutVisible(false)
     }
 
     return (
         <div style={ { display: 'inline-block' } }>
-            <button onClick={ handleEdit }>Edit</button>
+            { layoutVisibility && <button onClick={ handleEdit }>Edit</button> }
             { todoListEditVisibility &&
-                <div style={ { display: 'inline-block' } }>
+                <div style={ !layoutVisibility ? { marginTop: '20px', display: 'inline-block', zIndex: '10000' } :
+                    { marginTop: '0px', display: 'inline-block', zIndex: '10000' } }>
                     <input style={ { width: '350px', } } onChange={ handleChange } value={ value } type="text" />
                     <button onClick={ handleSave }>Save</button>
                 </div>
