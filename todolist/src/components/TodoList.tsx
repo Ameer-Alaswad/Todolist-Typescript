@@ -1,8 +1,9 @@
-import React, { useState, useId, useEffect } from "react";
+import React, { useState, useId } from "react";
 import List from "./List";
 import { deleteTodoLogic, addTodos } from "./todListUtils";
 
-interface Props { }
+interface Props {
+}
 
 const TodoList: React.FC<Props> = (props) => {
   if (!localStorage.getItem("listsInStorage")) {
@@ -13,18 +14,21 @@ const TodoList: React.FC<Props> = (props) => {
   );
   //////////////////////////////////////////////////////////////////////////////////////////
   let todoId = useId();
-  const [todoListArray, setTodoListArray] = useState<string[]>([]);
+  const [todoListArray, setTodoListArray] = useState<any>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const [layoutVisible, setLayoutVisible] = useState<boolean>(false);
 
   //////////////////////////////////////////////////////////////////////////////////////////////
 
   const handleTodoAdd = () => {
     if (listsInStorage) {
       if (todoListArray.length === 0) {
+        console.log(listsInStorage);
         return addTodos(listsInStorage, setTodoListArray, inputValue)
       }
-      if (!todoListArray.includes(inputValue)) {
+      const filteredTodos = todoListArray.map((todo: any) => {
+        return todo.todoText
+      })
+      if (!filteredTodos.includes(inputValue)) {
         return addTodos(listsInStorage, setTodoListArray, inputValue)
       }
       return alert('exist')
@@ -47,8 +51,6 @@ const TodoList: React.FC<Props> = (props) => {
     todoId: todoId,
     todoListArray: todoListArray,
     setTodoListArray: setTodoListArray,
-    layoutVisible: layoutVisible,
-    setLayoutVisible: setLayoutVisible
 
   };
   //////////////////////////////////////////////////////////////////////////////////////////////
