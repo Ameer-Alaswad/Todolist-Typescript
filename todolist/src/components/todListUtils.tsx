@@ -1,8 +1,6 @@
-export const deleteTodoLogic = (event: React.MouseEvent<HTMLButtonElement>, todoListArray: string[]) => {
-  const makeTargetAnHtmlElement = event.target as Element
-  const selectedTodoList = makeTargetAnHtmlElement.previousElementSibling?.previousElementSibling?.textContent
-  const filteredTodoLists = todoListArray.filter((todo: any) => {
-    console.log(todo);
+export const deleteTodoLogic = (event: React.MouseEvent<HTMLButtonElement>, todoListArray: any, selectedTodoList: string) => {
+
+  const filteredTodoLists = todoListArray.filter((todo: { todoText: string, checkbox: boolean }) => {
 
     if (todo.todoText === selectedTodoList) return null
     return todo
@@ -12,7 +10,7 @@ export const deleteTodoLogic = (event: React.MouseEvent<HTMLButtonElement>, todo
 
 }
 //its add todos to the localStorage and the state
-export const addTodos = (listsInStorage: string[], setTodoListArray: (value: string[]) => void, inputValue: string) => {
+export const addTodos = (listsInStorage: [], setTodoListArray: (value: []) => void, inputValue: string) => {
   const todoData = {
     todoText: inputValue,
     checkbox: false

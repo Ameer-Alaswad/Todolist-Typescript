@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface Props {
-    setTodoListArray: (value: string[]) => void
+    setTodoListArray: (value: []) => void
     setLayoutVisibility: (value: boolean) => void
     layoutVisibility: boolean
 }
@@ -15,7 +15,6 @@ const EditTodo: React.FC<Props> = (Props) => {
     ///////////////////////////////////////////////////////////////////////////////
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
-        console.log(event.target.value);
     }
     //////////////////////////////////////////////////////////////////////////////////////
     const handleEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,13 +31,24 @@ const EditTodo: React.FC<Props> = (Props) => {
         const listsInStorage = JSON.parse(
             localStorage.getItem("listsInStorage") || "[]"
         );
-        const filteredTodos = listsInStorage.map((todo: string) => {
-            if (todo === todoText) return value
+        const filteredTodos = listsInStorage.map((todo: { todoText: string, checkbox: boolean }) => {
+            if (value === '') {
+                setTodoListEditVisibility(true)
+                setLayoutVisibility(false)
+                return alert('something')
+            }
+
+            if (todo.todoText === todoText) {
+                todo.todoText = value
+                return todo
+            }
             return todo
         })
-        localStorage.setItem("listsInStorage", JSON.stringify(filteredTodos))
-        setTodoListArray(filteredTodos)
-        setTodoListEditVisibility(false)
+        if (filteredTodos[0] !== undefined) {
+            localStorage.setItem("listsInStorage", JSON.stringify(filteredTodos))
+            setTodoListArray(filteredTodos)
+            setTodoListEditVisibility(false)
+        }
     }
 
     return (
