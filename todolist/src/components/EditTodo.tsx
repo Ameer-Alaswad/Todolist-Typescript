@@ -11,6 +11,7 @@ const EditTodo: React.FC<Props> = (Props) => {
     ///////////////////////////////////////////////////////////////
     const [value, setValue] = useState<string>("");
     const [todoListEditVisibility, setTodoListEditVisibility] = useState<boolean>(false);
+    const [emptyInputMessage, setEmptyInputMessage] = useState<boolean>(false);
     const [todoText, setTodoText] = useState<string>("");
     ///////////////////////////////////////////////////////////////////////////////
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +36,7 @@ const EditTodo: React.FC<Props> = (Props) => {
             if (value === '') {
                 setTodoListEditVisibility(true)
                 setLayoutVisibility(false)
-                return alert('something')
+                return setEmptyInputMessage(true)
             }
 
             if (todo.todoText === todoText) {
@@ -44,10 +45,12 @@ const EditTodo: React.FC<Props> = (Props) => {
             }
             return todo
         })
+        console.log(filteredTodos)
         if (filteredTodos[0] !== undefined) {
             localStorage.setItem("listsInStorage", JSON.stringify(filteredTodos))
             setTodoListArray(filteredTodos)
             setTodoListEditVisibility(false)
+            setEmptyInputMessage(false)
         }
     }
 
@@ -61,6 +64,7 @@ const EditTodo: React.FC<Props> = (Props) => {
                     <button onClick={ handleSave }>Save</button>
                 </div>
             }
+            { emptyInputMessage && <div> kalb</div> }
         </div>
     )
 }
