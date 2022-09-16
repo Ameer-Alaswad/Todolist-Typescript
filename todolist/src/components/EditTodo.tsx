@@ -13,6 +13,7 @@ const EditTodo: React.FC<Props> = (Props) => {
     const [todoListEditVisibility, setTodoListEditVisibility] = useState<boolean>(false);
     const [emptyInputMessage, setEmptyInputMessage] = useState<boolean>(false);
     const [todoText, setTodoText] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
     ///////////////////////////////////////////////////////////////////////////////
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
@@ -28,24 +29,42 @@ const EditTodo: React.FC<Props> = (Props) => {
         setLayoutVisibility(false)
     }
     const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const filteredTodoTects: string[] = []
         setLayoutVisibility(true)
         const listsInStorage = JSON.parse(
             localStorage.getItem("listsInStorage") || "[]"
         );
+        listsInStorage.forEach((todo: { todoText: string, checkbox: boolean }) => {
+            if (todo.todoText !== todoText) {
+
+                return filteredTodoTects.push(todo.todoText)
+            }
+        })
+        console.log(filteredTodoTects);
+
         const filteredTodos = listsInStorage.map((todo: { todoText: string, checkbox: boolean }) => {
+
             if (value === '') {
                 setTodoListEditVisibility(true)
                 setLayoutVisibility(false)
+                setErrorMessage("Add something or save then delete the Todo")
                 return setEmptyInputMessage(true)
+            }
+            if (filteredTodoTects.includes(value)) {
+                setTodoListEditVisibility(true)
+                setLayoutVisibility(false)
+                setErrorMessage("This Todo already exist")
+                return setEmptyInputMessage(true)
+
             }
 
             if (todo.todoText === todoText) {
                 todo.todoText = value
-                return todo
             }
             return todo
+
+
         })
-        console.log(filteredTodos)
         if (filteredTodos[0] !== undefined) {
             localStorage.setItem("listsInStorage", JSON.stringify(filteredTodos))
             setTodoListArray(filteredTodos)
@@ -64,7 +83,8 @@ const EditTodo: React.FC<Props> = (Props) => {
                     <button onClick={ handleSave }>Save</button>
                 </div>
             }
-            { emptyInputMessage && <div> kalb</div> }
+            { emptyInputMessage && <div>{ errorMessage }</div> }
+
         </div>
     )
 }

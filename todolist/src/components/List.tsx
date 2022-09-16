@@ -8,13 +8,14 @@ interface Props {
     todoId: string
     handleDeleteTodo: (event: React.MouseEvent<HTMLButtonElement>) => void
     setTodoListArray: (value: []) => void
+    inputValue: string
 
 }
 const List: React.FC<Props> = (Props) => {
     const [layoutVisibility, setLayoutVisibility] = useState<boolean>(true);
     const { handleTodoInput, handleTodoAdd,
         todoListArray, todoId,
-        handleDeleteTodo, setTodoListArray }
+        handleDeleteTodo, setTodoListArray, inputValue }
         = Props
     const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
         const checkboxInput = event.target as HTMLElement
@@ -48,16 +49,16 @@ const List: React.FC<Props> = (Props) => {
         <div  >
             <h1>Ameer's TodoList</h1>
             { layoutVisibility && <div>
-                <input onChange={ handleTodoInput } type="text" />
+                <input value={ inputValue } onChange={ handleTodoInput } type="text" />
                 <button onClick={ handleTodoAdd }>Add</button>
             </div> }
             { todoListArray && todoListArray.map((todo: { todoText: string, checkbox: boolean | undefined }, i: number) => {
-                const checkbox = todo.checkbox
+                const checkbox = todo?.checkbox
                 return <div key={ todoId + i }>
                     { layoutVisibility && <div style={ { display: 'inline-block' } }>
                         <div style={ checkbox ?
                             { color: 'blue', display: 'inline-block' } : { display: 'inline-block' } }>
-                            { todo.todoText }</div>
+                            { todo?.todoText }</div>
                         <input type="checkbox" checked={ checkbox } onChange={ handleCheckBox } />
                         <button onClick={ handleDeleteTodo }>x</button></div> }
                     <EditTodo { ...obj } />

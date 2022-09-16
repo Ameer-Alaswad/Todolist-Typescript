@@ -20,17 +20,22 @@ const TodoList: React.FC<Props> = (props) => {
   //////////////////////////////////////////////////////////////////////////////////////////////
 
   const handleTodoAdd = () => {
+
+    if (inputValue === "") return alert("Add a todo")
     if (listsInStorage) {
       if (todoListArray.length === 0) {
+        setInputValue(" ")
         return addTodos(listsInStorage, setTodoListArray, inputValue)
       }
       const filteredTodos = todoListArray.map((todo: { todoText: string, checkbox: boolean }) => {
         return todo.todoText
       })
       if (!filteredTodos.includes(inputValue)) {
+        setInputValue(" ")
         return addTodos(listsInStorage, setTodoListArray, inputValue)
+
       }
-      return alert('exist')
+      return alert('This todo already exist')
     }
   };
   const handleDeleteTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,6 +57,7 @@ const TodoList: React.FC<Props> = (props) => {
     todoId: todoId,
     todoListArray: todoListArray,
     setTodoListArray: setTodoListArray,
+    inputValue: inputValue
 
   };
   //////////////////////////////////////////////////////////////////////////////////////////////

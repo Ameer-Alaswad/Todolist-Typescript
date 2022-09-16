@@ -2,7 +2,7 @@ export const deleteTodoLogic = (event: React.MouseEvent<HTMLButtonElement>, todo
 
   const filteredTodoLists = todoListArray.filter((todo: { todoText: string, checkbox: boolean }) => {
 
-    if (todo.todoText === selectedTodoList) return null
+    if (todo?.todoText === selectedTodoList) return null
     return todo
 
   });
