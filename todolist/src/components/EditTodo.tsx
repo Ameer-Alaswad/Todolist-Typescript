@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 interface Props {
     setTodoListArray: (value: []) => void
@@ -21,7 +25,9 @@ const EditTodo: React.FC<Props> = (Props) => {
     //////////////////////////////////////////////////////////////////////////////////////
     const handleEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
         const clickedButton = event.target as HTMLElement
-        const todoText = clickedButton.parentElement?.previousElementSibling?.children[0].textContent
+        const todoText = clickedButton.parentElement?.parentElement?.previousElementSibling?.children[1].textContent
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////////
         setValue(String(todoText))
         setTodoText(String(todoText))
@@ -35,12 +41,14 @@ const EditTodo: React.FC<Props> = (Props) => {
             localStorage.getItem("listsInStorage") || "[]"
         );
         listsInStorage.forEach((todo: { todoText: string, checkbox: boolean }) => {
+            console.log(todoText, todo.todoText);
+
             if (todo.todoText !== todoText) {
 
                 return filteredTodoTects.push(todo.todoText)
             }
         })
-        console.log(filteredTodoTects);
+        console.log({ filteredTodoTects });
 
         const filteredTodos = listsInStorage.map((todo: { todoText: string, checkbox: boolean }) => {
 
@@ -75,12 +83,14 @@ const EditTodo: React.FC<Props> = (Props) => {
 
     return (
         <div style={ { display: 'inline-block' } }>
-            { layoutVisibility && <button onClick={ handleEdit }>Edit</button> }
+            { layoutVisibility && <Button style={ { height: "35px", marginRight: '5px', width: '65px' } } size="small" onClick={ handleEdit } variant="contained" color="success" endIcon={ <EditIcon /> }>
+                Edit
+            </Button> }
             { todoListEditVisibility &&
-                <div style={ !layoutVisibility ? { marginTop: '20px', display: 'inline-block', zIndex: '10000' } :
+                <div style={ !layoutVisibility ? { marginTop: '200px', display: 'flex', zIndex: '10000' } :
                     { marginTop: '0px', display: 'inline-block', zIndex: '10000' } }>
-                    <input style={ { width: '350px', } } onChange={ handleChange } value={ value } type="text" />
-                    <button onClick={ handleSave }>Save</button>
+                    <TextField size="small" style={ { width: '430px', marginRight: '10px' } } value={ value } onChange={ handleChange } id="outlined-basic" label="Edit your Todo" variant="outlined" />
+                    <Button style={ { height: "40px", marginRight: '5px', width: '75px' } } size="small" onClick={ handleSave } variant="contained" color="success" endIcon={ <SaveIcon /> }>save</Button>
                 </div>
             }
             { emptyInputMessage && <div>{ errorMessage }</div> }

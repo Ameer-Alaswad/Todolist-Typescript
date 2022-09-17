@@ -24,7 +24,7 @@ const TodoList: React.FC<Props> = (props) => {
     if (inputValue === "") return alert("Add a todo")
     if (listsInStorage) {
       if (todoListArray.length === 0) {
-        setInputValue(" ")
+        setInputValue("")
         return addTodos(listsInStorage, setTodoListArray, inputValue)
       }
       const filteredTodos = todoListArray.map((todo: { todoText: string, checkbox: boolean }) => {
@@ -40,7 +40,8 @@ const TodoList: React.FC<Props> = (props) => {
   };
   const handleDeleteTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
     const makeTargetAnHtmlElement = event.target as Element
-    const selectedTodoList = makeTargetAnHtmlElement.previousElementSibling?.previousElementSibling?.textContent
+    const selectedTodoList = makeTargetAnHtmlElement.parentElement?.previousElementSibling?.children[1].textContent
+
     localStorage.setItem(
       "listsInStorage",
       JSON.stringify(deleteTodoLogic(event, todoListArray, String(selectedTodoList)))

@@ -1,0 +1,37 @@
+.todolist-content-container {
+    background-color: white;
+    height: 600px;
+    width: 750px;
+    border-radius: 15px;
+}
+
+.input-add-button-container {
+    margin-bottom: 20px;
+}
+
+.kalb {
+    width: 130px;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 550px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.341);
+
+}
+
+.absko {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 500px;
+
+
+}
+
+.site-title {
+    margin-top: 20px;
+    font-family: 'Gothic A1', sans-serif;
+}
