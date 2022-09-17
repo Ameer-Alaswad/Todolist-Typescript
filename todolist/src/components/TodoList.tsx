@@ -62,7 +62,7 @@ const TodoList: React.FC<Props> = (props) => {
   };
   //////////////////////////////////////////////////////////////////////////////////////////////
   return (
-    <div >
+    <div style={ { display: "flex", height: "100%", justifyContent: "center", alignItems: "center", } } >
       <List { ...obj } />
     </div>
 

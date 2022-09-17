@@ -2,7 +2,7 @@
   margin: 0;
   height: 100vh;
   text-align: center;
-  background-image: url("/public/todo.jpg");
+  background-color: #e2d5de;
 }
 
 .App-logo {

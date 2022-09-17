@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EditTodo from "./EditTodo";
+import "./TodoLis.CSS"
 
 interface Props {
     handleTodoInput: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -46,8 +47,8 @@ const List: React.FC<Props> = (Props) => {
         layoutVisibility: layoutVisibility, handleDeleteTodo, todoListArray
     }
     return (
-        <div  >
-            <h1>Ameer's TodoList</h1>
+        <div className="todolist-content-container" >
+            <h1 style={ { marginTop: "0" } }>Ameer's TodoList</h1>
             { layoutVisibility && <div>
                 <input value={ inputValue } onChange={ handleTodoInput } type="text" />
                 <button onClick={ handleTodoAdd }>Add</button>
