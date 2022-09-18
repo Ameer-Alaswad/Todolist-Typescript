@@ -48,7 +48,7 @@ const List: React.FC<Props> = (Props) => {
             localStorage.getItem("listsInStorage") || "[]")
         setTodoListArray(listFromStorage)
 
-    }, []);
+    }, [setTodoListArray]);
     const obj = {
         setTodoListArray: setTodoListArray, setLayoutVisibility: setLayoutVisibility,
         layoutVisibility: layoutVisibility, handleDeleteTodo, todoListArray
