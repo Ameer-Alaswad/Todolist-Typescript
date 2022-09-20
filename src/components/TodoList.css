@@ -31,7 +31,14 @@
 
 }
 
+.site-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .site-title {
-    margin-top: 20px;
+    margin-top: 0px;
     font-family: 'Gothic A1', sans-serif;
 }

@@ -16,6 +16,7 @@ interface Props {
     setTodoListArray: (value: []) => void
     inputValue: string
 
+
 }
 const List: React.FC<Props> = (Props) => {
     const [layoutVisibility, setLayoutVisibility] = useState<boolean>(true);
@@ -70,7 +71,7 @@ const List: React.FC<Props> = (Props) => {
                             <div style={ { display: 'inline-block' } }>
                                 <Checkbox checked={ checkbox } onChange={ handleCheckBox } color="secondary" />
                                 <p style={ checkbox ?
-                                    { color: 'blue', textDecoration: "line-through", display: 'inline-block' } : { display: 'inline-block' } }>
+                                    { color: 'blue', textDecoration: "line-through", display: 'inline-block', } : { display: 'inline-block' } }>
                                     { todo?.todoText }</p>
                             </div>
 
