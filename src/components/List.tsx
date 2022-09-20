@@ -54,12 +54,13 @@ const List: React.FC<Props> = (Props) => {
     const deleteTodoProps = {
         layoutVisibility, handleDeleteTodo
     }
+    const editModelProps = { layoutVisibility, setLayoutVisibility }
 
     return (
         <div className="todolist-content-container">
             <h1 className="site-title">My TodoList</h1>
             <TodoForm { ...formProps } />
-            <div style={ { height: "450px", overflow: "auto" } }>
+            <div className="lists-container ">
                 { todoListArray &&
                     todoListArray.map(
                         (
@@ -74,7 +75,7 @@ const List: React.FC<Props> = (Props) => {
                                     key={ todoId + i }
                                 >
                                     <DisplayTodo { ...displayTodoProps } />
-                                    <div style={ { display: "flex", alignItems: "center" } }>
+                                    <div className="edit-delete-todo-container">
                                         <EditTodo { ...obj } />
                                         <DeleteTodo { ...deleteTodoProps } />
                                     </div>
@@ -83,7 +84,7 @@ const List: React.FC<Props> = (Props) => {
                         }
                     ) }
             </div>
-            <EditModel layoutVisibility={ layoutVisibility } setLayoutVisibility={ setLayoutVisibility } />
+            <EditModel { ...editModelProps } />
         </div>
     );
 };

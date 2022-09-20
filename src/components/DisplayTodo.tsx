@@ -1,4 +1,5 @@
 import Checkbox from "@mui/material/Checkbox";
+require("./TodoList.css");
 
 
 interface Props {
@@ -21,14 +22,10 @@ const DisplayTodo: React.FC<Props> = ({ checkbox, handleCheckBox, todo, layoutVi
                         color="secondary"
                     />
                     <p
-                        style={
+                        className={
                             checkbox
-                                ? {
-                                    color: "blue",
-                                    textDecoration: "line-through",
-                                    display: "inline-block",
-                                }
-                                : { display: "inline-block" }
+                                ? "checked-todo-style"
+                                : "unchecked-todo-style"
                         }
                     >
                         { todo?.todoText }

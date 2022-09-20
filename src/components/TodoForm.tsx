@@ -12,7 +12,7 @@ interface Props {
 const TodoForm: React.FC<Props> = ({ layoutVisibility,
     inputValue, handleTodoInput, handleTodoAdd }) => {
 
-
+    const todoFormButtonStyles = { marginTop: "10px", marginLeft: "10px" }
     return (
         <>
             { layoutVisibility && (
@@ -27,7 +27,7 @@ const TodoForm: React.FC<Props> = ({ layoutVisibility,
                     />
                     <Button
                         type="submit"
-                        style={ { marginTop: "10px", marginLeft: "10px" } }
+                        style={ todoFormButtonStyles }
                         variant="contained"
                         endIcon={ <AddIcon /> }
                     >

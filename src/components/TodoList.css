@@ -42,3 +42,47 @@
     margin-top: 20px;
     font-family: 'Gothic A1', sans-serif;
 }
+
+.checked-todo-style {
+    color: blue;
+    text-decoration: line-through;
+    display: inline-block;
+}
+
+.unchecked-todo-style {
+
+    display: inline-block;
+}
+
+.edit-todo-model {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+}
+
+.edit-todo-form-visible {
+    margin-top: 200px;
+    display: flex;
+    z-index: 10000;
+}
+
+.edit-todo-form-invisible {
+    margin-top: 0px;
+    display: inline-block;
+    z-index: 10000;
+}
+
+.lists-container {
+    height: 450px;
+    overflow: auto;
+}
+
+.edit-delete-todo-container {
+    display: flex;
+    align-items: center;
+}

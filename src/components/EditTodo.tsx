@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
 import { handleSaveTodoLogic } from "./handlers";
+import EditTodoForm from "./EditTodoForm";
 
 interface Props {
     setTodoListArray: (value: []) => void;
@@ -48,12 +47,15 @@ const EditTodo: React.FC<Props> = (Props) => {
             setTodoListArray
         )
     };
-
+    const propsObj = {
+        todoListEditVisibility, handleChange, handleSave, value, layoutVisibility
+    }
+    const editTodoButtonStyle = { height: "35px", marginRight: "5px", width: "65px" }
     return (
         <div style={ { display: "inline-block" } }>
             { layoutVisibility && (
                 <Button
-                    style={ { height: "35px", marginRight: "5px", width: "65px" } }
+                    style={ editTodoButtonStyle }
                     size="small"
                     onClick={ handleEdit }
                     variant="contained"
@@ -63,37 +65,7 @@ const EditTodo: React.FC<Props> = (Props) => {
                     Edit
                 </Button>
             ) }
-            { todoListEditVisibility && (
-                <form
-                    onSubmit={ handleSave }
-
-                    style={
-                        !layoutVisibility
-                            ? { marginTop: "200px", display: "flex", zIndex: "10000" }
-                            : { marginTop: "0px", display: "inline-block", zIndex: "10000" }
-                    }
-                >
-                    <TextField
-                        size="small"
-                        style={ { width: "430px", marginRight: "10px" } }
-                        value={ value }
-                        onChange={ handleChange }
-                        id="outlined-basic"
-                        label="Edit your Todo"
-                        variant="outlined"
-                    />
-                    <Button
-                        style={ { height: "40px", marginRight: "5px", width: "75px" } }
-                        size="small"
-                        variant="contained"
-                        color="success"
-                        type="submit"
-                        endIcon={ <SaveIcon /> }
-                    >
-                        save
-                    </Button>
-                </form>
-            ) }
+            <EditTodoForm { ...propsObj } />
             { emptyInputMessage && <div>{ errorMessage }</div> }
         </div>
     );
