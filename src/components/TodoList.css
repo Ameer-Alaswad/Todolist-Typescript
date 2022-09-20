@@ -3,6 +3,7 @@
     height: 600px;
     width: 750px;
     border-radius: 15px;
+    overflow: hidden;
 }
 
 .input-add-button-container {
@@ -47,11 +48,17 @@
     color: blue;
     text-decoration: line-through;
     display: inline-block;
+    word-wrap: break-word;
+    text-align: left;
+    max-width: 302px;
 }
 
 .unchecked-todo-style {
-
+    word-wrap: break-word;
+    text-align: left;
     display: inline-block;
+    max-width: 302px;
+
 }
 
 .edit-todo-model {
