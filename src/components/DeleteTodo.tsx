@@ -9,12 +9,12 @@ interface Props {
 const TodoForm: React.FC<Props> = ({ layoutVisibility,
     handleDeleteTodo }) => {
 
-
+    const deleteTodoButtonStyle = { height: "35px", width: "90px" }
     return (
         <>
             { layoutVisibility && (
                 <Button
-                    style={ { height: "35px", width: "90px" } }
+                    style={ deleteTodoButtonStyle }
                     size="small"
                     color="error"
                     onClick={ handleDeleteTodo }
