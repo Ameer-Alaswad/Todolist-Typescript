@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField } from '@mui/material';
+import { handleCheckBoxLogic } from "./handlers";
 require('./TodoList.css');
 
 interface Props {
@@ -25,24 +26,7 @@ const List: React.FC<Props> = (Props) => {
         handleDeleteTodo, setTodoListArray, inputValue }
         = Props
     const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const checkboxInput = event.target as HTMLElement
-        const checkedElement = checkboxInput.parentElement?.nextElementSibling?.textContent
-        console.log(checkedElement);
-
-        const listFromStorage = JSON.parse(
-            localStorage.getItem("listsInStorage") || "[]")
-        const filteredElements = listFromStorage.map((checked: { todoText: string, checkbox: boolean }) => {
-            if (checkedElement === checked.todoText) {
-                checked.checkbox = !checked.checkbox
-                return checked
-            }
-            return checked
-        })
-        localStorage.setItem(
-            "listsInStorage",
-            JSON.stringify(filteredElements)
-        );
-        setTodoListArray(filteredElements)
+        handleCheckBoxLogic(event, setTodoListArray)
     };
     useEffect(() => {
         const listFromStorage = JSON.parse(
@@ -51,8 +35,8 @@ const List: React.FC<Props> = (Props) => {
 
     }, [setTodoListArray]);
     const obj = {
-        setTodoListArray: setTodoListArray, setLayoutVisibility: setLayoutVisibility,
-        layoutVisibility: layoutVisibility, handleDeleteTodo, todoListArray
+        setTodoListArray, setLayoutVisibility,
+        layoutVisibility, handleDeleteTodo, todoListArray
     }
     return (
         <div className="todolist-content-container" >

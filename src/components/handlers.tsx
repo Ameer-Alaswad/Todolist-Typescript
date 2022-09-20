@@ -24,3 +24,29 @@ export const handleTodoAddLogic = (
         return alert('This todo already exist')
     }
 };
+
+
+export const handleCheckBoxLogic = (event: React.ChangeEvent<HTMLInputElement>,
+    setTodoListArray: (value: []) => void
+
+) => {
+    const checkboxInput = event.target as HTMLElement
+    const checkedElement = checkboxInput.parentElement?.nextElementSibling?.textContent
+    console.log(checkedElement);
+
+    const listFromStorage = JSON.parse(
+        localStorage.getItem("listsInStorage") || "[]")
+    const filteredElements = listFromStorage.map((checked: { todoText: string, checkbox: boolean }) => {
+        if (checkedElement === checked.todoText) {
+            checked.checkbox = !checked.checkbox
+            return checked
+        }
+        return checked
+    })
+    localStorage.setItem(
+        "listsInStorage",
+        JSON.stringify(filteredElements)
+    );
+    setTodoListArray(filteredElements)
+
+}
