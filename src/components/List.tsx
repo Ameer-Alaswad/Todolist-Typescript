@@ -9,7 +9,7 @@ require('./TodoList.css');
 
 interface Props {
     handleTodoInput: (event: React.ChangeEvent<HTMLInputElement>) => void
-    handleTodoAdd: () => void
+    handleTodoAdd: (event: React.FormEvent<HTMLFormElement>) => void
     todoListArray: []
     todoId: string
     handleDeleteTodo: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -57,12 +57,12 @@ const List: React.FC<Props> = (Props) => {
     return (
         <div className="todolist-content-container" >
             <h1 className="site-title">My TodoList</h1>
-            { layoutVisibility && <div className="input-add-button-container" >
+            { layoutVisibility && <form onSubmit={ handleTodoAdd } className="input-add-button-container" >
                 <TextField style={ { width: '430px' } } value={ inputValue } onChange={ handleTodoInput } id="outlined-basic" label="Add a Todo" variant="outlined" />
-                <Button style={ { marginTop: "10px", marginLeft: '10px' } } onClick={ handleTodoAdd } variant="contained" endIcon={ <AddIcon /> }>
+                <Button type="submit" style={ { marginTop: "10px", marginLeft: '10px' } } variant="contained" endIcon={ <AddIcon /> }>
                     Add
                 </Button>
-            </div> }
+            </form> }
             <div style={ { height: '450px', overflow: 'auto' } }>
                 { todoListArray && todoListArray.map((todo: { todoText: string, checkbox: boolean | undefined }, i: number) => {
                     const checkbox = todo?.checkbox

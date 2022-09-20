@@ -18,7 +18,9 @@ const TodoList: React.FC<Props> = () => {
   const [todoListArray, setTodoListArray] = useState<[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleTodoAdd = () => {
+  const handleTodoAdd = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     handleTodoAddLogic(inputValue,
       listsInStorage,
       todoListArray,
