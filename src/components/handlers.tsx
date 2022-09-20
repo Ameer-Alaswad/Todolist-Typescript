@@ -1,4 +1,4 @@
-import { addTodos } from "./todListUtils";
+import { addTodos, todoListValueChecker } from "./todListUtils";
 
 export const handleTodoAddLogic = (
     inputValue: string,
@@ -32,7 +32,6 @@ export const handleCheckBoxLogic = (event: React.ChangeEvent<HTMLInputElement>,
 ) => {
     const checkboxInput = event.target as HTMLElement
     const checkedElement = checkboxInput.parentElement?.nextElementSibling?.textContent
-    console.log(checkedElement);
 
     const listFromStorage = JSON.parse(
         localStorage.getItem("listsInStorage") || "[]")
@@ -49,4 +48,36 @@ export const handleCheckBoxLogic = (event: React.ChangeEvent<HTMLInputElement>,
     );
     setTodoListArray(filteredElements)
 
+}
+
+export const handleSaveTodoLogic = (
+    value: string,
+    setTodoListEditVisibility: (value: boolean) => void,
+    setLayoutVisibility: (value: boolean) => void,
+    setErrorMessage: (value: string) => void,
+    setEmptyInputMessage: (value: boolean) => void,
+    todoText: string,
+    setTodoListArray: (value: []) => void
+) => {
+    const filteredTodoTects: string[] = [];
+    setLayoutVisibility(true);
+    const listsInStorage = JSON.parse(
+        localStorage.getItem("listsInStorage") || "[]"
+    );
+    listsInStorage.forEach((todo: { todoText: string; checkbox: boolean }) => {
+        if (todo.todoText !== todoText) {
+            return filteredTodoTects.push(todo.todoText);
+        }
+    });
+
+    todoListValueChecker(
+        value,
+        setTodoListEditVisibility,
+        setLayoutVisibility,
+        setErrorMessage,
+        setEmptyInputMessage,
+        filteredTodoTects,
+        todoText,
+        setTodoListArray
+    );
 }
