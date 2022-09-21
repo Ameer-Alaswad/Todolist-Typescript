@@ -1,6 +1,6 @@
 .todolist-content-container {
     background-color: white;
-    height: 600px;
+    height: 608px;
     width: 750px;
     border-radius: 15px;
     overflow: hidden;
@@ -92,4 +92,22 @@
 .edit-delete-todo-container {
     display: flex;
     align-items: center;
+}
+
+@media only screen and (max-width: 552px) {
+    .todo-container {
+
+        width: 370px;
+
+
+    }
+
+    .checked-todo-style {
+        max-width: 168px;
+    }
+
+    .unchecked-todo-style {
+        max-width: 168px;
+
+    }
 }
